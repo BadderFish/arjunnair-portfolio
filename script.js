@@ -3,6 +3,25 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
+  // Mobile menu toggle
+  const mobileMenuToggle = $(".mobile-menu-toggle");
+  const mobileMenu = $(".mobile-menu");
+
+  mobileMenuToggle?.addEventListener("click", () => {
+    const isActive = mobileMenuToggle.classList.toggle("active");
+    mobileMenu?.classList.toggle("active");
+    mobileMenuToggle.setAttribute("aria-expanded", isActive.toString());
+  });
+
+  // Close mobile menu when clicking a link
+  $$(".mobile-menu a").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenuToggle?.classList.remove("active");
+      mobileMenu?.classList.remove("active");
+      mobileMenuToggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+
   // Year
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
