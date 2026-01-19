@@ -27,4 +27,4 @@ A clean, modern, and responsive portfolio website showcasing my work as an aeron
 Visit: [https://badderfish.github.io/arjunnaircvdemo.github.io/](https://badderfish.github.io/arjunnaircvdemo.github.io/)
 
 ---
-© 2025 Arjun Nair
+© 2026 Arjun Nair
