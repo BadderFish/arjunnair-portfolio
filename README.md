@@ -24,7 +24,7 @@ A clean, modern, and responsive portfolio website showcasing my work as an aeron
 - Google Fonts (Inter)
 
 ## Live Site
-Visit: [https://badderfish.github.io/arjunnaircvdemo.github.io/](https://badderfish.github.io/arjunnaircvdemo.github.io/)
+Visit: [https://badderfish.github.io/arjunnair-portfolio/](https://badderfish.github.io/arjunnair-portfolio/)
 
 ---
 © 2026 Arjun Nair
