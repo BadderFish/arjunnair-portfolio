@@ -66,12 +66,19 @@ a:hover{
 
 /* Header */
 .site-header{
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
   background: rgba(11,12,16,0.72);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+.site-header.hidden{
+  transform: translateY(-100%);
 }
 
 .header-inner{
@@ -87,6 +94,11 @@ a:hover{
   align-items:center;
   gap: 12px;
   min-width: 220px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.brand:hover{
+  opacity: 0.85;
 }
 .avatar{
   width: 42px;
@@ -159,6 +171,8 @@ button.btn{
 .hero{
   padding: 58px 0 30px;
   background: var(--bg);
+  /* Account for fixed header */
+  margin-top: 72px;
 }
 .hero-grid{
   display:grid;
@@ -210,6 +224,8 @@ h1{
   position: relative;
   padding: 52px 0;
   background: var(--bg);
+  /* Add scroll offset so sections don't hide under sticky header */
+  scroll-margin-top: 80px;
 }
 
 /* "ALT" sections get a solid darker fill to create visual separation */
@@ -416,22 +432,9 @@ h1{
   transform: translateX(-50%) translateY(0);
 }
 
-/* Light theme (optional) */
-:root[data-theme="light"]{
-  --bg: #f6f7fb;
-  --panel: #ffffff;
-  --panel-2: #f2f4fb;
-  --text: #101218;
-  --muted: #4b5563;
-  --line: rgba(16,18,24,0.12);
-  --accent: #0284c7;
-  --accent-2: #7c3aed;
-}
-:root[data-theme="light"] body{
-  background:
-    radial-gradient(1200px 600px at 10% 0%, rgba(2,132,199,0.10), transparent 60%),
-    radial-gradient(900px 500px at 90% 10%, rgba(124,58,237,0.10), transparent 55%),
-    var(--bg);
+/* Leadership section - extra spacing for volunteer card */
+.volunteer-card{
+  margin-top: 24px;
 }
 
 /* Responsive */

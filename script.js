@@ -7,23 +7,36 @@
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Theme toggle (dark/light) + persistence
-  const themeBtn = $("#themeToggle");
-  const stored = localStorage.getItem("theme");
-  if (stored) document.documentElement.dataset.theme = stored;
+  // Header show/hide on scroll
+  const header = $(".site-header");
+  let lastScroll = 0;
+  let ticking = false;
+  let preventHide = false; // Flag to prevent hiding after nav click
 
-  const setTheme = (t) => {
-    document.documentElement.dataset.theme = t;
-    localStorage.setItem("theme", t);
-    themeBtn?.setAttribute("aria-pressed", String(t === "light"));
-  };
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const currentScroll = window.pageYOffset;
 
-  themeBtn?.addEventListener("click", () => {
-    const cur = document.documentElement.dataset.theme || "dark";
-    setTheme(cur === "dark" ? "light" : "dark");
+        // Always show header at top of page
+        if (currentScroll <= 100) {
+          header?.classList.remove("hidden");
+        }
+        // Show header when scrolling up, hide when scrolling down
+        else if (currentScroll < lastScroll) {
+          header?.classList.remove("hidden");
+        } else if (currentScroll > lastScroll && currentScroll > 200 && !preventHide) {
+          header?.classList.add("hidden");
+        }
+
+        lastScroll = currentScroll;
+        ticking = false;
+      });
+      ticking = true;
+    }
   });
 
-  // Smooth scroll for in-page links
+  // Smooth scroll for in-page links (with header offset handled by scroll-margin-top in CSS)
   $$('a[href^="#"]').forEach((a) => {
     a.addEventListener("click", (e) => {
       const id = a.getAttribute("href");
@@ -31,9 +44,23 @@
       const target = $(id);
       if (!target) return;
       e.preventDefault();
+      // Always show header when clicking nav links and prevent auto-hide
+      header?.classList.remove("hidden");
+      preventHide = true;
+      setTimeout(() => { preventHide = false; }, 1000); // Keep header visible for 1 second after click
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       history.pushState(null, "", id);
     });
+  });
+
+  // Click brand (name/logo) to scroll to top
+  const brand = $(".brand");
+  brand?.addEventListener("click", () => {
+    header?.classList.remove("hidden");
+    preventHide = true;
+    setTimeout(() => { preventHide = false; }, 1000);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    history.pushState(null, "", window.location.pathname);
   });
 
   // Active nav highlight
