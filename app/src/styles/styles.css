@@ -429,7 +429,8 @@ h1{
 
 .contact-label {
   font-weight: 600;
-  color: rgba(233,234,240,0.75);
+  color: var(--text);
+  opacity: 0.8;
 }
 
 .contact-item a {
@@ -444,7 +445,8 @@ h1{
 }
 
 .contact-separator {
-  color: rgba(233,234,240,0.35);
+  color: var(--muted);
+  opacity: 0.5;
   user-select: none;
 }
 
@@ -557,10 +559,18 @@ h1{
 .chip{
   padding: 8px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.18);
+  border: 1px solid var(--line);
+  background: var(--panel-2);
   font-size: 13px;
-  color: rgba(233,234,240,0.85);
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Light mode chips with better contrast */
+:root:not(.dark-mode) .chip{
+  background: var(--panel);
+  border-color: rgba(0,0,0,0.12);
+  color: var(--text);
 }
 
 /* Grids */
@@ -595,7 +605,7 @@ h1{
 /* Timeline */
 .timeline{ display:flex; flex-direction: column; gap: 18px; }
 .t-item{ display:grid; grid-template-columns: 150px 1fr; gap: 14px; }
-.t-when{ color: rgba(233,234,240,0.70); font-weight: 600; font-size: 13px; }
+.t-when{ color: var(--text); opacity: 0.75; font-weight: 600; font-size: 13px; }
 .t-title{ font-weight: 700; }
 .t-sub{ color: var(--muted); font-size: 13px; margin-top: 2px; }
 
